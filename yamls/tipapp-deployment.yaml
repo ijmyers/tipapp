@@ -30,4 +30,4 @@ spec:
       volumes:
       - name: tipapp-data
         persistentVolumeClaim:
-          claimName: pvc-ebs-ch10data
+          claimName: pv-ebs-ch10data
