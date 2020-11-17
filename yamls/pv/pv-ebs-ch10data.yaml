@@ -2,7 +2,6 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: pv-ebs-ch10data
-  namespace: tipapp
 spec:
   storageClassName: ""
   capacity:
@@ -18,6 +17,3 @@ spec:
     partition: 0
     readOnly: false
     volumeID: vol-026b3fe8a5eec1074  # name = "tipapp-ebs"
-  claimRef:
-    name: pvc-ebs-ch10data
-    namespace: tipapp
