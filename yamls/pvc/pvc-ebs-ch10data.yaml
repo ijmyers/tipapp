@@ -11,4 +11,4 @@ spec:
     requests:
       storage: 8Gi
   storageClassName: ""
-  volumeName: pvc-ebs-ch10data
+  volumeName: pv-ch10data
