@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tip-app-deployment
+  namespace: tipapp
   labels:
     app: tipapp
 spec:
@@ -23,11 +24,10 @@ spec:
         - containerPort: 3000
         volumeMounts:
         - name: tipapp-data
-          mountPath: /data
+          mountPath: /usr/app/uploads
       imagePullSecrets:
       - name: regcred
       volumes:
       - name: tipapp-data
-        awsElasticBlockStore:
-          volumeID: tipapp-ebs
-          fsType: ext4
+        persistentVolumeClaim:
+          claimName: pvc-ebs-ch10data

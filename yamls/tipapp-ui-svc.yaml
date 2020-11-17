@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tip-app-deployment
+  namespace: tipapp
   labels:
     app: tipapp
 spec:
