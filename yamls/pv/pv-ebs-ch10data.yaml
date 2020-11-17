@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-ebs-ch10data
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 8Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - rw
+  awsElasticBlockStore:
+    fsType: ext4
+    partition: 0
+    readOnly: false
+    volumeID: vol-026b3fe8a5eec1074  # name = "tipapp-ebs"
+  claimRef:
+    name: pv-ch10data
+    namespace: tipapp
