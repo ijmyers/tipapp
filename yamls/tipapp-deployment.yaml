@@ -21,5 +21,13 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
+        volumeMounts:
+        - name: tipapp-data
+          mountPath: /data
       imagePullSecrets:
       - name: regcred
+      volumes:
+      - name: tipapp-data
+        awsElasticBlockStore:
+          volumeID: tipapp-ebs
+          fsType: ext4
