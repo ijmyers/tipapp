@@ -14,7 +14,4 @@ spec:
   mountOptions:
     - rw
   awsElasticBlockStore:
-    fsType: ext4
-    partition: 0
-    readOnly: false
-    volumeID: "vol-026b3fe8a5eec1074"  # name = "tipapp-ebs"
+    volumeID: "vol-026b3fe8a5eec1074"
