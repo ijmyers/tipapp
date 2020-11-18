@@ -28,6 +28,6 @@ spec:
         - containerPort: 3000
         volumeMounts:
         - name: tipapp-data
-          mountPath: /usr/app/uploads
+          mountPath: /data
       imagePullSecrets:
       - name: regcred
