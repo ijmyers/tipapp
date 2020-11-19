@@ -19,7 +19,7 @@ spec:
       volumes:
       - name: tipapp-data
         persistentVolumeClaim:
-          claimName: pvc-ebs-ch10data
+          claimName: pvc-ebs
       containers:
       - name: tipapp
         image: registry.il2.dsop.io/skicamp/project-opal/tip-front-end:3d522f91
@@ -28,6 +28,6 @@ spec:
         - containerPort: 3000
         volumeMounts:
         - name: tipapp-data
-          mountPath: /data
+          mountPath: /usr/app/uploads
       imagePullSecrets:
       - name: regcred

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-ebs-ch10data
+  name: pvc-ebs
   namespace: tipapp
 spec:
   accessModes:
@@ -11,3 +11,7 @@ spec:
     requests:
       storage: 8Gi
   storageClassName: ""
+  selector:
+    matchLabels:
+      type: aws-ebc
+

@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-ebs-ch10data
+  name: pv-ebs2
+  labels:
+    type: aws-ebc
 spec:
   storageClassName: ""
   capacity:
@@ -13,5 +15,5 @@ spec:
   mountOptions:
     - rw
   awsElasticBlockStore:
-    volumeID: "vol-026b3fe8a5eec1074"
+    volumeID: "vol-0969a973ec12ff31d"
     fsType: ext4
