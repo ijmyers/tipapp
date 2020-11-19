@@ -15,5 +15,5 @@ spec:
   mountOptions:
     - rw
   awsElasticBlockStore:
-    volumeID: vol-0ffa3f46b40aba681
+    volumeID: "vol-0ffa3f46b40aba681"
     fsType: ext4

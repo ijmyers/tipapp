@@ -6,3 +6,7 @@ provisioner: kubernetes.io/aws-ebs
 parameters:
   fsType: ext4
 volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+mountOptions:
+  - rw
+allowVolumeExpansion: false
