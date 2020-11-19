@@ -1,26 +1,10 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: tip-app-deployment
-  namespace: tipapp
-  labels:
-    app: tipapp
+  name: tip-app
 spec:
-  replicas: 1
-  revisionHistoryLimit: 3
+  ports:
+  - port: 80
+    targetPort: 3000
   selector:
-    matchLabels:
-      app: tipapp
-  template:
-    metadata:
-      labels:
-        app: tipapp
-    spec:
-      containers:
-      - image: registry.il2.dsop.io/skicamp/project-opal/tip-front-end:3d522f91
-        name: tipapp
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 3000
-      imagePullSecrets:
-      - name: regcred
+    app: tipapp
