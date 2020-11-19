@@ -3,9 +3,9 @@ kind: PersistentVolume
 metadata:
   name: pv-ebs1
   labels:
-    type: aws-ebc
+    type: aws-ebs
 spec:
-  storageClassName: ""
+  storageClassName: slow
   capacity:
     storage: 8Gi
   volumeMode: Filesystem
@@ -15,5 +15,5 @@ spec:
   mountOptions:
     - rw
   awsElasticBlockStore:
-    volumeID: "vol-0ffa3f46b40aba681"
+    volumeID: vol-0ffa3f46b40aba681
     fsType: ext4
