@@ -18,8 +18,7 @@ spec:
     spec:
       volumes:
       - name: tipapp-data
-        persistentVolumeClaim:
-          claimName: pvc-ebs
+        emptyDir: {}
       containers:
       - name: tipapp
         image: registry.il2.dsop.io/skicamp/project-opal/tip-front-end:3d522f91
