@@ -16,6 +16,7 @@ spec:
       labels:
         app: tipapp
     spec:
+      restartPolicy: Always
       volumes:
       - name: tipapp-data
         emptyDir: {}
@@ -29,10 +30,11 @@ spec:
         - name: tipapp-data
           mountPath: /usr/app/uploads
       - name: tipbe
-        image: alpine:3.7
+        image: tipbe:1
         imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: tipapp-data
           mountPath: /data
+        imagePullPolicy: Never
       imagePullSecrets:
       - name: regcred
