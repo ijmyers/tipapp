@@ -20,7 +20,7 @@ spec:
       - name: tipapp-data
         emptyDir: {}
       containers:
-      - name: tipapp
+      - name: tipfe
         image: registry.il2.dsop.io/skicamp/project-opal/tip-front-end:3d522f91
         imagePullPolicy: IfNotPresent
         ports:
@@ -28,5 +28,11 @@ spec:
         volumeMounts:
         - name: tipapp-data
           mountPath: /usr/app/uploads
+      - name: tipbe
+        image: alpine:3.7
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: tipapp-data
+          mountPath: /data
       imagePullSecrets:
       - name: regcred
