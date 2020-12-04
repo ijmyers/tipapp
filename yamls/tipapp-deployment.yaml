@@ -30,7 +30,7 @@ spec:
         - name: tipapp-data
           mountPath: /usr/app/uploads
       - name: tipbe
-        image: tipbe:1
+        image: tipbe/1
         imagePullPolicy: Never
         volumeMounts:
         - name: tipapp-data
