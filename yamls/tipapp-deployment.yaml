@@ -30,8 +30,8 @@ spec:
         - name: tipapp-data
           mountPath: /usr/app/uploads
       - name: tipbe
-        image: tipbe/1
-        imagePullPolicy: Never
+        image: registry.il2.dsop.io/skicamp/project-opal/tip-front-end:tipbe1
+        imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: tipapp-data
           mountPath: /data
