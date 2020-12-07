@@ -28,12 +28,15 @@ spec:
         - containerPort: 3000
         volumeMounts:
         - name: tipapp-data
-          mountPath: /usr/app/uploads
+          mountPath: /usr/src/app/uploads
       - name: tipbe
-        image: tipbe:1
-        imagePullPolicy: Never
+        image: registry.il2.dsop.io/skicamp/project-opal/tip-front-end:tipbe2
+        imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: tipapp-data
           mountPath: /data
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "1"
       imagePullSecrets:
       - name: regcred
