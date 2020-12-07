@@ -35,5 +35,8 @@ spec:
         volumeMounts:
         - name: tipapp-data
           mountPath: /data
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "1"
       imagePullSecrets:
       - name: regcred
