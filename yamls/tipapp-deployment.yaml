@@ -28,7 +28,7 @@ spec:
         - containerPort: 3000
         volumeMounts:
         - name: tipapp-data
-          mountPath: /usr/app/uploads
+          mountPath: /usr/src/app/uploads
       - name: tipbe
         image: registry.il2.dsop.io/skicamp/project-opal/tip-front-end:tipbe2
         imagePullPolicy: IfNotPresent
