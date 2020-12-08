@@ -5,7 +5,7 @@ metadata:
   labels:
     type: minio
 spec:
-  storageClassName: slow
+  storageClassName: local-storage
   capacity:
     storage: 5Gi
   volumeMode: Filesystem
@@ -23,4 +23,4 @@ spec:
         - key: label
           operator: In
           values:
-          - node3
+          - tipdev-node3

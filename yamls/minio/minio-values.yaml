@@ -1,0 +1,20 @@
+mode: distributed
+replicas: 4
+persistence:
+  size: 5Gi
+  storageClass: local-storage
+resources:
+  requests:
+    memory: 1Gi
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: label
+            operator: In
+            values:
+            - tipdev-node3
+            - tipdev-node4
+            - tipdev-node1
+            - tipdev-node2
