@@ -29,6 +29,17 @@ spec:
         volumeMounts:
         - name: tipapp-data
           mountPath: /usr/src/app/uploads
+        env: 
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: minio-keys-secret
+              key: minio-access-key
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: minio-keys-secret
+              key: minio-secret-key
       - name: tipbe
         image: registry.il2.dsop.io/skicamp/project-opal/tip-front-end:tipbe2
         imagePullPolicy: IfNotPresent
