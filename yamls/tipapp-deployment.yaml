@@ -49,5 +49,15 @@ spec:
         env:
         - name: PYTHONUNBUFFERED
           value: "1"
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: minio-keys-secret
+              key: minio-access-key
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: minio-keys-secret
+              key: minio-secret-key
       imagePullSecrets:
       - name: regcred
