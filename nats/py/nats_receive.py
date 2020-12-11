@@ -12,7 +12,7 @@ async def msg_handler(msg):
 async def main():
 
     nc = NATS()
-    await nc.connect("nats://0.0.0.0:4222", no_echo=False)
+    await nc.connect("nats://0.0.0.0:4222", no_echo=True)
 
     sid = await nc.subscribe('foo', cb=msg_handler)
 
