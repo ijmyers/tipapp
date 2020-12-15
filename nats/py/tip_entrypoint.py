@@ -1,48 +1,39 @@
+import signal
 import asyncio
 from asyncio.exceptions import TimeoutError
 from nats_helper import *
 
-async def TIP_service():
+
+
+async def TIP_service(loop):
 
     config_sub_name = 'config'
     parse_sub_name = 'parse'
     nats_url = 'nats://0.0.0.0:4222'
-    complete = False
+    print('tip service running')
 
-    while not complete:
+    # Connect and subscribe.
+    nc, state = await open_conn2(nats_url, 
+                                            [config_sub_name, parse_sub_name])
 
-        print('tip service running')
 
-        # Connect and subscribe.
-        nc, subject_sid_dict = await open_conn(nats_url, 
-                                               [config_sub_name, parse_sub_name])
-        await asyncio.sleep(2.0)
-
-        print('waiting for first incoming message')
-        # Wait for msg published on config_sub_name. No need
-        # to do other work until that happens.
-        try:
-            msg = await asyncio.wait_for(
-                subject_sid_dict[config_sub_name]['future'], 30)
-        except TimeoutError as e:
-            #future = subject_sid_dict[config_sub_name]['future']
-            #if future.cancel():
-            #    print("Future exception: {}".format(future.exception()))
-            print('Timed out: {}'.format(e))
+    def sig_handler():
+        print('Caught SIGINT or SIGTERM')
+        if nc.is_closed:
+            return
 
         # Unsubscribe and disconnect.
-        await close_conn(nc, subject_sid_dict)
-        print('tip service done')
-        complete = True
+        loop.create_task(close_conn(nc, state))
+
+    for sig in ('SIGINT', 'SIGTERM'):
+        loop.add_signal_handler(getattr(signal, sig), sig_handler)
 
 
 if __name__ == '__main__':
 
     loop = asyncio.get_event_loop()
+    loop.run_until_complete(TIP_service(loop))
     try:
-        loop.run_until_complete(TIP_service())
+        loop.run_forever()
     finally:
-
-        # stop for loop.run_forever()
-        #loop.stop()
         loop.close()

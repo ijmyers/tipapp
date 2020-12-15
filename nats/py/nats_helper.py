@@ -21,16 +21,32 @@ async def msg_handler(msg):
     print('Received a message on {:s}: reply = {:s}, data = {:s}'.format(
         subject, reply, data))
 
-#async def sub_callback(msg):
+def subscription_cb(state, subject):
 
-#    nonlocal future
-#    future.set_result(msg)
+    async def _subscription_cb(msg):
+        state[subject]['msg'] = msg
+        sub = msg.subject
+        reply = msg.reply
+        data = msg.data.decode()
+        print('Received a message on {:s}: reply = {:s}, data = {:s}'.format(
+            sub, reply, data))
+
+    return _subscription_cb
+
+async def nats_conn_err_cb(e):
+    print("NATS connection error: {}".format(e))
+
+async def nats_closed_cb():
+    await asyncio.sleep(0.1)
+    loop = asyncio.get_running_loop()
+    loop.stop()
 
 async def open_conn(nats_url, sub_list):
 
     # Connect to nats server
     nc = NATS()
-    await nc.connect(nats_url, no_echo=True)
+    await nc.connect(nats_url, no_echo=True, error_cb=nats_conn_err_cb, 
+                     closed_cb=nats_closed_cb)
 
     # Subscribe to subjects.
     subject_sid_dict = {}
@@ -51,10 +67,29 @@ async def open_conn(nats_url, sub_list):
 
     return nc, subject_sid_dict
 
-async def close_conn(nc, subject_sid_dict):
+async def open_conn2(nats_url, sub_list):
+
+    # Connect to nats server
+    nc = NATS()
+    await nc.connect(nats_url, no_echo=True, error_cb=nats_conn_err_cb, 
+                     closed_cb=nats_closed_cb)
+
+    # Subscribe to subjects.
+    state = {}
+    for subject in sub_list:
+        state[subject] = {'sid': None, 'msg': None}
+        sid = await nc.subscribe(subject, cb=subscription_cb(state, subject))
+        state[subject] = {'sid': sid}
+
+    # NATS docs tutorials always flush after subscribing.
+    await nc.flush()
+
+    return nc, state
+
+async def close_conn(nc, state):
 
     # unsubscribe
-    for subject, subjdict in subject_sid_dict.items():
+    for subject in state.keys():
         #print('Unsubscribing from \'{:s}\', sid = {:d}'.format(
         #    subject, subjdict['sid']))
 
@@ -62,7 +97,7 @@ async def close_conn(nc, subject_sid_dict):
         # halt other messages. 
         # Note: drain causes an error. not sure why or how to solve it.
         #await nc.drain(subjdict['sid'])
-        await nc.unsubscribe(subjdict['sid'])
+        await nc.unsubscribe(state[subject]['sid'])
 
     await nc.close()
 
