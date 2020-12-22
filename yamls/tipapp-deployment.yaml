@@ -59,5 +59,10 @@ spec:
             secretKeyRef:
               name: minio-keys-secret
               key: minio-secret-key
+      - name: nats
+        image: nats:linux
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 4222
       imagePullSecrets:
       - name: regcred
