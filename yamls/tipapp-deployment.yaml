@@ -62,7 +62,7 @@ spec:
       - name: nats
         image: nats:linux
         imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 4222
+        #ports:
+        #- containerPort: 4222
       imagePullSecrets:
       - name: regcred
