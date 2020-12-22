@@ -65,5 +65,7 @@ spec:
         ports:
         # Expose on pod for debug, should be able to send messages.
         - containerPort: 4222
+        args:
+        - "-DV"
       imagePullSecrets:
       - name: regcred
