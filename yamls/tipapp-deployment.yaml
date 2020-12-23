@@ -41,7 +41,7 @@ spec:
               name: minio-keys-secret
               key: minio-secret-key
       - name: tipbe
-        image: registry.il2.dso.mil/skicamp/project-opal/tip-svc/tip-svc-exec:8
+        image: registry.il2.dso.mil/skicamp/project-opal/tip-svc/tip-svc-exec:latest
         imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: tipapp-data
